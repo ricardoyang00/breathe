@@ -35,3 +35,7 @@ echo "Cleaning up..."
 rm -rf "$STAGING_DIR"
 
 echo "Done! Generated $DMG_NAME"
+echo "----------------------------------------"
+echo "SHA256 Checksum for Homebrew Cask:"
+shasum -a 256 "$DMG_NAME"
+echo "----------------------------------------"
