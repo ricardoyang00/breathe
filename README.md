@@ -12,7 +12,7 @@
 
 <br/>
 
-As someone who is highly allergic to pollen and dust, I constantly need to be aware of the outdoor air quality to prevent severe allergy symptoms and pain. I built **Breathe** to have a quick, glanceable way to check the current risk levels right from my Mac's menu bar before I step outside or open my windows. 
+Managing pollen and dust allergies requires constant awareness of outdoor air quality to prevent severe symptoms. **Breathe** provides a quick, glanceable way to check current environmental risk levels directly from the macOS menu bar, helping users make informed decisions before stepping outside or opening windows. 
 
 ## Features
 
