@@ -1,7 +1,6 @@
 <div align="center">
-    <img src="assets/images/banner.svg">
-
-  </br>
+    <img src="assets/images/banner.svg" width=80%>
+    </br></br>
 
 
   <a href="#installation"><img src="https://img.shields.io/badge/Download-Now-4b3baf" alt="Download"></a>
@@ -54,4 +53,4 @@ brew install --cask ricardoyang00/tap/breathe
 
 ## License
 
-This project is licensed under the MIT License.
+MIT License - see LICENSE file for details
