@@ -34,10 +34,11 @@ brew install --cask ricardoyang00/tap/breathe
 ### Option 2: Direct Download
 
 1. Go to the [Releases](https://github.com/ricardoyang00/breathe/releases) page.
-2. Download the latest `Breathe.dmg` (or `.zip`).
+2. Download the latest `Breathe.dmg`.
 3. Drag the `Breathe.app` into your `Applications` folder.
 
-> **Note (Gatekeeper):** 
+> [!TIP]
+> **Gatekeeper:**
 > Because Breathe is an indie open-source app, macOS might show an *"App is damaged and can't be opened"* error. To fix this, open your Terminal and run the following command to remove the quarantine flag:
 > ```bash
 > xattr -cr /Applications/Breathe.app
