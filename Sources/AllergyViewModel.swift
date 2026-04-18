@@ -39,18 +39,30 @@ class AllergyViewModel: ObservableObject {
     
     var menuBarText: String {
         if !trackPollen && !trackDust {
-            return "⏸ Paused"
+            return showMenuBarIcon ? "⏸ Paused" : "Paused"
         }
-        let icon = highestRiskLevel.menuBarIcon
-        var metrics = [String]()
-        if trackPollen { metrics.append("Pollen") }
-        if trackDust { metrics.append("Dust") }
         
-        if metrics.count == 1 {
-            return "\(icon) \(metrics[0])"
-        } else {
-            return icon
+        var components = [String]()
+        
+        if showMenuBarIcon {
+            components.append(highestRiskLevel.iconOnly)
         }
+        
+        if showMenuBarText {
+            var text = highestRiskLevel.description
+            if trackPollen && !trackDust {
+                text += " Pollen"
+            } else if trackDust && !trackPollen {
+                text += " Dust"
+            }
+            components.append(text)
+        }
+        
+        if components.isEmpty {
+            return highestRiskLevel.iconOnly
+        }
+        
+        return components.joined(separator: " ")
     }
     
     var menuBarTooltip: String {
@@ -72,6 +84,10 @@ class AllergyViewModel: ObservableObject {
     // Allergen Toggles
     @AppStorage("trackPollen") var trackPollen: Bool = true
     @AppStorage("trackDust") var trackDust: Bool = true
+    
+    // Display Toggles
+    @AppStorage("showMenuBarIcon") var showMenuBarIcon: Bool = true
+    @AppStorage("showMenuBarText") var showMenuBarText: Bool = true
     
     private let apiService = APIService.shared
     

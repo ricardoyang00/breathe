@@ -79,6 +79,38 @@ struct SettingsView: View {
                     
                     Divider()
                     
+                    // Display Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Display")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .padding(.top, 4)
+                        
+                        Toggle("Show Menu Bar Icon", isOn: Binding(
+                            get: { viewModel.showMenuBarIcon },
+                            set: { newValue in
+                                if !newValue && !viewModel.showMenuBarText {
+                                    viewModel.showMenuBarText = true
+                                }
+                                viewModel.showMenuBarIcon = newValue
+                                Task { await viewModel.refreshAll() }
+                            }
+                        ))
+                        
+                        Toggle("Show Menu Bar Text", isOn: Binding(
+                            get: { viewModel.showMenuBarText },
+                            set: { newValue in
+                                if !newValue && !viewModel.showMenuBarIcon {
+                                    viewModel.showMenuBarIcon = true
+                                }
+                                viewModel.showMenuBarText = newValue
+                                Task { await viewModel.refreshAll() }
+                            }
+                        ))
+                    }
+                    
+                    Divider()
+                    
                     // System Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("System")
@@ -109,17 +141,23 @@ struct SettingsView: View {
             
             Spacer(minLength: 0)
             
-            Link(destination: AppConfig.repositoryURL) {
-                Image(systemName: "chevron.left.forwardslash.chevron.right")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.primary)
+            VStack(spacing: 8) {
+                Link(destination: AppConfig.repositoryURL) {
+                    Image(systemName: "chevron.left.forwardslash.chevron.right")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.primary)
+                }
+                .buttonStyle(.plain)
+                .help("View Repository on GitHub")
+                
+                Text("Version \(AppConfig.appVersion)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
             }
-            .buttonStyle(.plain)
-            .help("View Repository on GitHub")
             .padding(.bottom, 20)
         }
-        .frame(width: 400, height: 460)
+        .frame(width: 400, height: 560)
     }
 }

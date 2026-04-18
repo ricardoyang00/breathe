@@ -53,6 +53,15 @@ enum RiskLevel: Int, Comparable {
         }
     }
     
+    var iconOnly: String {
+        switch self {
+        case .unknown: return "⚪️"
+        case .low: return "🟢"
+        case .moderate: return "🟡"
+        case .high: return "🔴"
+        }
+    }
+    
     var color: Color {
         switch self {
         case .low: return .green
