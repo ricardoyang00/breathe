@@ -90,11 +90,20 @@ class AllergyViewModel: ObservableObject {
     @AppStorage("showMenuBarText") var showMenuBarText: Bool = true
     
     private let apiService = APIService.shared
+    private var refreshTask: Task<Void, Never>?
     
     init() {
-        Task {
-            await refreshAll()
+        refreshTask = Task {
+            while !Task.isCancelled {
+                await refreshAll()
+                // Sleep for 5 minutes (300 seconds)
+                try? await Task.sleep(nanoseconds: 300_000_000_000)
+            }
         }
+    }
+    
+    deinit {
+        refreshTask?.cancel()
     }
     
     func refreshAll() async {

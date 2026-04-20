@@ -16,7 +16,7 @@ class APIService {
     
     func fetchData(lat: Double, lon: Double) async throws -> OpenMeteoResponse {
         let cacheKey = "\(lat),\(lon)" as NSString
-        if let cached = cache.object(forKey: cacheKey), Date().timeIntervalSince(cached.timestamp) < 3600 { // 1 hour cache
+        if let cached = cache.object(forKey: cacheKey), Date().timeIntervalSince(cached.timestamp) < 300 { // 5 minutes cache
             return cached.response
         }
         
