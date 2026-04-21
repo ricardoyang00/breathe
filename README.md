@@ -23,6 +23,8 @@ Managing pollen and dust allergies requires constant awareness of outdoor air qu
 - 🌿 **Menu Bar Integration:** Instantly view current air quality and pollen levels.
 - 📊 **Split Metrics:** Separate risk evaluations for **Pollen** (Grass/Birch) and **Dust** (AQI/PM10/PM2.5).
 - 💡 **Tips:** Contextual advice based on current conditions.
+- 🔄 **Auto Refresh:** Automatically updates air quality data every 5 minutes in the background.
+- ⚙️ **Display Options:** Customize the menu bar by toggling the icon and text visibility.
 - 🔒 **Privacy:** No GPS tracking. You manually search and set your city.
 - 🚀 **Autostart:** Easily toggle the app to launch automatically at login.
 
