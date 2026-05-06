@@ -5,7 +5,6 @@ struct SettingsView: View {
     @ObservedObject var viewModel: AllergyViewModel
     @State private var searchQuery: String = ""
     @State private var searchResults: [GeocodingResult] = []
-    @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
     
     var body: some View {
         VStack(spacing: 0) {
@@ -69,11 +68,11 @@ struct SettingsView: View {
                         
                         Toggle("Track Pollen (Grass & Birch)", isOn: Binding(
                             get: { viewModel.trackPollen },
-                            set: { viewModel.trackPollen = $0; Task { await viewModel.refreshAll() } }
+                            set: { viewModel.trackPollen = $0; viewModel.saveSettings(); Task { await viewModel.refreshAll() } }
                         ))
                         Toggle("Track Dust (PM10 & PM2.5)", isOn: Binding(
                             get: { viewModel.trackDust },
-                            set: { viewModel.trackDust = $0; Task { await viewModel.refreshAll() } }
+                            set: { viewModel.trackDust = $0; viewModel.saveSettings(); Task { await viewModel.refreshAll() } }
                         ))
                     }
                     
@@ -93,6 +92,7 @@ struct SettingsView: View {
                                     viewModel.showMenuBarText = true
                                 }
                                 viewModel.showMenuBarIcon = newValue
+                                viewModel.saveSettings()
                                 Task { await viewModel.refreshAll() }
                             }
                         ))
@@ -104,6 +104,7 @@ struct SettingsView: View {
                                     viewModel.showMenuBarIcon = true
                                 }
                                 viewModel.showMenuBarText = newValue
+                                viewModel.saveSettings()
                                 Task { await viewModel.refreshAll() }
                             }
                         ))
@@ -119,19 +120,8 @@ struct SettingsView: View {
                             .padding(.top, 4)
                         
                         Toggle("Start at Login", isOn: Binding(
-                            get: { launchAtLogin },
-                            set: { newValue in
-                                do {
-                                    if newValue {
-                                        try SMAppService.mainApp.register()
-                                    } else {
-                                        try SMAppService.mainApp.unregister()
-                                    }
-                                    launchAtLogin = newValue
-                                } catch {
-                                    print("Failed to toggle launch at login: \(error)")
-                                }
-                            }
+                            get: { viewModel.launchAtLogin },
+                            set: { viewModel.toggleLaunchAtLogin($0) }
                         ))
                     }
                     
@@ -159,5 +149,8 @@ struct SettingsView: View {
             .padding(.bottom, 20)
         }
         .frame(width: 400, height: 560)
+        .onAppear {
+            viewModel.syncLaunchAtLoginStatus()
+        }
     }
 }

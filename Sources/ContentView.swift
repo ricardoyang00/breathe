@@ -27,9 +27,7 @@ struct ContentView: View {
             if let locationData = viewModel.activeLocationData {
                 LocationCard(title: locationData.name, locationData: locationData, viewModel: viewModel)
             } else {
-                Text("Loading location...")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                LocationCard(title: viewModel.savedLocationName, locationData: nil, viewModel: viewModel)
             }
             
             Divider()
